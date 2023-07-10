@@ -174,9 +174,9 @@ def test_vector(seed,msg):
     print("Signature Time = ", sig_end_time-sig_start_time)
 
     sk_back_up = copy.deepcopy(sk1)
-    print("public key size: ", sys.getsizeof(pk))
-    print("secret key size: ", sys.getsizeof(sk1))
-    print("Signature Size: ", sys.getsizeof(sig))
+    # print("public key size: ", sys.getsizeof(pk))
+    # print("secret key size: ", sys.getsizeof(sk1))
+    # print("Signature Size: ", sys.getsizeof(sig))
 
     # update the secret key sequentially, and make sure the
     # updated key matched rust's outputs.
@@ -213,26 +213,26 @@ if __name__ == "__main__":
         seed1 = b"this is a very long seed1 for pixel tests"
         seed2 = b"this is a very long seed2 for pixel tests"
         seed3 = b"this is a very long seed3 for pixel tests"
-        message = b'This is a message of 10 bytes'
+        message = b'This is going to be a message of 100 bytes for a sample program run'
         pk1, sig1, sk1 = test_vector(seed1, message)
         pk2, sig2, sk2 = test_vector(seed2, message)
         pk3, sig3, sk3 = test_vector(seed3, message)
-        print("sig1 = ", sig1)
-        print("sig2 = ", sig2)
-        print("sig3 = ", sig3)
-        key_agg_start_time = time.time() * 1000000
+        # print("sig1 = ", sig1)
+        # print("sig2 = ", sig2)
+        # print("sig3 = ", sig3)
+        key_agg_start_time = time.time_ns()
         agg_pk = key_aggregation([pk1,pk2,pk3])
-        key_agg_end_time = time.time() * 1000000
+        key_agg_end_time = time.time_ns()
         key_agg_time = key_agg_end_time - key_agg_start_time
-        print("Key Aggregation Time: ", key_agg_time)
+        print("Key Aggregation Time in nanoseconds: ", key_agg_time)
 
 
 
         # print("agg_pk = ", agg_pk)
-        sig_aggregation_start_time = int(time.time() * 1000000)
+        sig_aggregation_start_time = int(time.time_ns())
         signat = sig_aggregation([sig1,sig2,sig3])
-        sig_aggregation_end_time = int(time.time() * 1000000)
-        print("Signature Aggregation Time: ", sig_aggregation_end_time-sig_aggregation_start_time)
+        sig_aggregation_end_time = int(time.time_ns())
+        print("Signature Aggregation Time in nanoseconds: ", sig_aggregation_end_time-sig_aggregation_start_time)
         # print("agg_sig = ", signat)
 
 
